@@ -1,5 +1,6 @@
 import Button from "./Button";
 import Input from "./Input";
-import Slider from "./Slider";
+import HeroSlider from "./sliders/HeroSlider";
+import OfferSlider from "./sliders/OfferSlider"
 
-export { Button, Input, Slider };
+export { Button, Input, HeroSlider, OfferSlider };
