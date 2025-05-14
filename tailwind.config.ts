@@ -15,9 +15,16 @@ const config: Config = {
       },
       colors: {
         brand: {
-          DEFAULT: "#4F46E5", // Indigo-600
-          light: "#6366F1",
-          dark: "#4338CA",
+          50: "#FFF5F5", // very light
+          100: "#FFE3E3",
+          200: "#FFBDBD",
+          300: "#FF9999",
+          400: "#FF4A57", // light brand
+          500: "#D7000F", // main brand
+          600: "#B8000D",
+          700: "#A3000B", // dark brand
+          800: "#7A0009",
+          900: "#520006", // very dark
         },
         neutral: {
           900: "#0F172A", // dark text
