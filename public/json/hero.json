@@ -1,0 +1,34 @@
+[
+    {
+      "slideImage": "/images/hero/slide-1.jpeg",
+      "alt": "Hero Slide 1",
+      "link": "/products"
+    },
+    {
+      "slideImage": "/images/hero/slide-2.jpg",
+      "alt": "Hero Slide 2",
+      "link": "/products"
+    },
+    {
+        "slideImage": "/images/hero/slide-1.jpeg",
+        "alt": "Hero Slide 1",
+        "link": "/products"
+      },
+      {
+        "slideImage": "/images/hero/slide-2.jpg",
+        "alt": "Hero Slide 2",
+        "link": "/products"
+      },
+      {
+        "slideImage": "/images/hero/slide-1.jpeg",
+        "alt": "Hero Slide 1",
+        "link": "/products"
+      },
+      {
+        "slideImage": "/images/hero/slide-2.jpg",
+        "alt": "Hero Slide 2",
+        "link": "/products"
+      }
+    
+  ]
+  

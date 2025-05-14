@@ -1,21 +1,36 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
 import { ChevronUp, ChevronDown } from "lucide-react";
+import Image from "next/image";
 import "swiper/css";
 import { Autoplay, Navigation } from "swiper/modules";
+import Link from "next/link";
 
 const OfferItem: React.FC = () => {
   const [swiperRef, setSwiperRef] = useState<SwiperType | null>(null);
+  const [offers, setOffers] = useState<{ offerImage: string; alt?: string; link: string }[]>(
+    []
+  );
+
+  // Fetch JSON data
+  useEffect(() => {
+    fetch("/json/offer.json")
+      .then((res) => res.json())
+      .then((data) => setOffers(data))
+      .catch((err) => console.error("Error fetching offer data:", err));
+  }, []);
 
   return (
     <div className="relative flex flex-col items-center mt-11">
       <div>
-        <h1 className="absolute -top-10 left-0 flex items-center justify-center text-xl font-bold text-black">Offer Items</h1>
+        <h1 className="absolute -top-10 left-0 flex items-center justify-center text-xl font-bold text-black">
+          Offer Items
+        </h1>
         <button
-          onClick={() => swiperRef?.slidePrev()} 
+          onClick={() => swiperRef?.slidePrev()}
           className="absolute -top-10 right-14 flex items-center justify-center w-12 h-7 bg-[#D7000F] text-white rounded-tl-md rounded-tr-md hover:text-[#D7000F] hover:bg-white border border-[#D7000F] transition"
         >
           <ChevronUp size={20} />
@@ -35,7 +50,7 @@ const OfferItem: React.FC = () => {
           delay: 3000,
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
-          waitForTransition: true
+          waitForTransition: true,
         }}
         speed={800}
         slidesPerView={1}
@@ -43,14 +58,20 @@ const OfferItem: React.FC = () => {
         modules={[Autoplay, Navigation]}
         className="h-[395px] w-full"
       >
-        {[...Array(6)].map((_, i) => (
+        {offers.map((offer, index) => (
           <SwiperSlide
-            key={i}
-            className="bg-white border h-20 flex items-center justify-center rounded"
+            key={index}
+            className="bg-white border rounded-md h-20 flex items-center justify-center"
           >
-            
-              <img className="h-full" src="https://static.vecteezy.com/system/resources/previews/012/141/840/non_2x/discount-up-to-85-percent-sign-tag-good-for-retail-business-banner-design-perfect-to-put-on-your-product-content-free-vector.jpg" alt="" />
-            
+            <Link href={offer.link}>
+              <Image
+                src={offer.offerImage}
+                alt={offer.alt || "Offer Image"}
+                width={300}
+                height={100}
+                className="h-full object-cover w-full rounded-md"
+              />
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

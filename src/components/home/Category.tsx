@@ -1,43 +1,27 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
 import { Grid, Autoplay } from "swiper/modules";
+import Image from "next/image";
+import Link from "next/link";
 
-export default function SwiperComponent() {
-  const swiperRef = useRef<SwiperType>();
+const Category: React.FC = () => {
+  const [swiperRef, setSwiperRef] = useState<SwiperType | null>(null);
+  const [category, setCategory] = useState<
+    { name: string; image: string; link: string }[]
+  >([]);
 
-  // Category & Image Data
-  const categories = [
-    { name: "Electronics", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Fashion", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Home & Living", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Books", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Sports", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Health", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Toys", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Automotive", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Garden", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Beauty", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Jewelry", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Office", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Electronics", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Fashion", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Home & Living", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Books", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Sports", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Health", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Toys", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Automotive", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Garden", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Beauty", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Jewelry", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-    { name: "Office", image: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/175/17540/17540088.jpeg" },
-  ];
+  useEffect(() => {
+    fetch("/json/category.json")
+      .then((response) => response.json())
+      .then((data) => setCategory(data))
+      .catch((error) => console.error("Error loading categories:", error));
+  }, []);
 
   return (
     <div className="relative mt-10">
@@ -47,7 +31,7 @@ export default function SwiperComponent() {
 
       {/* Left Arrow Button */}
       <button
-        onClick={() => swiperRef.current?.slidePrev()}
+        onClick={() => swiperRef?.slidePrev()}
         className="absolute left-0 top-1/2 -translate-y-1/2 bg-[#D7000F] text-white hover:bg-[#D7000F] hover:text-white border border-[#D7000F] opacity-20 hover:opacity-100 transition h-[100px] rounded-ee-md rounded-tr-md z-10"
       >
         <svg
@@ -68,7 +52,7 @@ export default function SwiperComponent() {
 
       {/* Right Arrow Button */}
       <button
-        onClick={() => swiperRef.current?.slideNext()}
+        onClick={() => swiperRef?.slideNext()}
         className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#D7000F] text-white shadow-lg hover:bg-[#D7000F] hover:text-white border border-[#D7000F] opacity-20 hover:opacity-100 transition h-[100px] rounded-ss-md rounded-bl-md z-10"
       >
         <svg
@@ -88,7 +72,7 @@ export default function SwiperComponent() {
       </button>
 
       <Swiper
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        onSwiper={setSwiperRef}
         slidesPerView={6}
         grid={{ rows: 2, fill: "row" }}
         spaceBetween={15}
@@ -101,22 +85,30 @@ export default function SwiperComponent() {
         modules={[Grid, Autoplay]}
         className="mySwiper"
       >
-        {categories.map((category, index) => (
+        {category.map((category, index) => (
           <SwiperSlide
             key={index}
-            className="swiper-slide bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+            className="swiper-slide bg-white rounded-lg border"
           >
-            <div className="flex flex-col items-center p-2">
-              <img
-                src={category.image}
-                alt={category.name}
-                className="h-[100px] w-[100px] object-cover rounded-md"
-              />
-              <span className="mt-2 text-gray-800 font-semibold">{category.name}</span>
-            </div>
+            <Link href={category.link}>
+              <div className="flex flex-col items-center p-2">
+                <Image
+                  src={category.image}
+                  alt={category.name || "Offer Image"}
+                  width={300}
+                  height={100}
+                  className="h-full object-cover w-full rounded-md"
+                />
+                <span className="mt-2 text-gray-800 text-center font-semibold">
+                  {category.name}
+                </span>
+              </div>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
     </div>
   );
-}
+};
+
+export default Category;

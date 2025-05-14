@@ -1,0 +1,22 @@
+[
+  {
+    "offerImage": "/images/offer/offer-1.jpg",
+    "alt": "Special Offer 1",
+    "link": "/products"
+  },
+  {
+    "offerImage": "/images/offer/offer-2.jpg",
+    "alt": "Special Offer 2",
+    "link": "/products"
+  },
+  {
+    "offerImage": "/images/offer/offer-1.jpg",
+    "alt": "Special Offer 1",
+    "link": "/products"
+  },
+  {
+    "offerImage": "/images/offer/offer-2.jpg",
+    "alt": "Special Offer 2",
+    "link": "/products"
+  }
+]
