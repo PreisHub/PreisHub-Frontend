@@ -1,73 +1,95 @@
 "use client";
 
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/grid";
 import { Grid, Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
+import Image from "next/image";
+
+
+type Product = {
+  name: string;
+  image: string;
+  href: string;
+};
 
 const Mens = () => {
   const swiperRef = useRef<SwiperType | null>(null);
-  const products = [
-    { name: "Shoes", image: "https://i.ibb.co.com/cdCrR6p/DALL-E-2025-03-08-03-44-58-A-high-quality-PNG-image-of-a-modern-wireless-headphone-centered-on-a-whi.webp", href: "/products" },
-    { name: "T-Shirts", image: "https://i.ibb.co.com/cdCrR6p/DALL-E-2025-03-08-03-44-58-A-high-quality-PNG-image-of-a-modern-wireless-headphone-centered-on-a-whi.webp", href: "/products" },
-    { name: "Pants", image: "https://i.ibb.co.com/cdCrR6p/DALL-E-2025-03-08-03-44-58-A-high-quality-PNG-image-of-a-modern-wireless-headphone-centered-on-a-whi.webp", href: "/products" },
-    { name: "Jackets", image: "https://i.ibb.co.com/cdCrR6p/DALL-E-2025-03-08-03-44-58-A-high-quality-PNG-image-of-a-modern-wireless-headphone-centered-on-a-whi.webp", href: "/products" },
-    { name: "Watches", image: "https://i.ibb.co.com/cdCrR6p/DALL-E-2025-03-08-03-44-58-A-high-quality-PNG-image-of-a-modern-wireless-headphone-centered-on-a-whi.webp", href: "/products" },
-    { name: "Accessories", image: "https://i.ibb.co.com/cdCrR6p/DALL-E-2025-03-08-03-44-58-A-high-quality-PNG-image-of-a-modern-wireless-headphone-centered-on-a-whi.webp", href: "/products" },
-    { name: "Belts", image: "https://i.ibb.co.com/cdCrR6p/DALL-E-2025-03-08-03-44-58-A-high-quality-PNG-image-of-a-modern-wireless-headphone-centered-on-a-whi.webp", href: "/products" },
-    { name: "Sunglasses", image: "https://i.ibb.co.com/cdCrR6p/DALL-E-2025-03-08-03-44-58-A-high-quality-PNG-image-of-a-modern-wireless-headphone-centered-on-a-whi.webp", href: "/products" },
-  ];
+  const [products, setProducts] = useState<Product[]>([]); 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("/json/mens.json");
+      const data: Product[] = await res.json(); 
+      setProducts(data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-    <div className="border">
-      <h1 className="text-xl font-bold text-black font-sans mt-3 mx-5">Men&apos;s</h1>
-      <div className="flex p-5 gap-5">
-        <div className="bg-red-700 w-[50%]">
-          <img className="h-full w-full border object-cover" src="https://i.ibb.co.com/cdCrR6p/DALL-E-2025-03-08-03-44-58-A-high-quality-PNG-image-of-a-modern-wireless-headphone-centered-on-a-whi.webp" alt="" />
-        </div>
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="border">
+        <h1 className="text-heading3 font-bold text-black font-sans mt-3 mx-5">Men&apos;s</h1>
+        <div className="flex p-5 gap-5">
+          <div className="w-[50%]">
+            <Image
+              className="h-[320px] w-full border object-cover"
+              src="/images/mens/mens.jpg"
+              alt=""
+              width={500}
+              height={500}
+            />
+          </div>
 
-        <div className="relative w-[50%]">
-          <Swiper
-            onSwiper={(swiper) => (swiperRef.current = swiper)}
-            slidesPerView={2}
-            grid={{ rows: 2, fill: "row" }}
-            spaceBetween={20}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-              waitForTransition: true,
-            }}
-            modules={[Grid, Autoplay]}
-            className="h-full"
-            slidesPerGroup={4}
-            speed={1200}
-            allowTouchMove={true}
-            grabCursor={true}
-          >
-            {products.map((product, index) => (
-              <SwiperSlide key={index}>
-                <Link href={product.href}>
-                    <div className="border h-[100px] hover:shadow-md transition-shadow">
-                      <img className="h-full w-full object-cover" src={product.image} alt={product.name} />
+          <div className="relative w-[50%] flex justify-center items-center">
+            <Swiper
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+              slidesPerView={2}
+              grid={{ rows: 2, fill: "row" }}
+              spaceBetween={20}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+                waitForTransition: true,
+              }}
+              modules={[Grid, Autoplay]}
+              className="h-full"
+              slidesPerGroup={4}
+              speed={1200}
+              allowTouchMove={true}
+              grabCursor={true}
+            >
+              {products.map((product, index) => (
+                <SwiperSlide key={index}>
+                  <Link href={product.href}>
+                    <div className="border flex flex-col justify-center items-center h-full">
+                      <Image
+                        className="h-[120px] w-full object-cover border-b"
+                        src={product.image}
+                        alt={product.name}
+                        width={100}
+                        height={100}
+                      />
+                      <p className="text-body3 font-medium text-black font-sans my-1 block">
+                        {product.name}
+                      </p>
                     </div>
-                    <p className="text-[14px] font-medium text-black font-sans my-2 block">{product.name}</p>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </div>
-    </div>
     </motion.div>
   );
 };

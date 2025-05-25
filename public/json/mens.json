@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Shoes",
+        "image": "/images/mens/mens.jpg",
+        "href": "/products"
+    },
+    {
+        "name": "T-Shirts",
+        "image": "/images/mens/mens.jpg",
+        "href": "/products"
+    },
+    {
+        "name": "Pants",
+        "image": "/images/mens/mens.jpg",
+        "href": "/products"
+    },
+    {
+        "name": "Jackets",
+        "image": "/images/mens/mens.jpg",
+        "href": "/products"
+    },
+    {
+        "name": "Watches",
+        "image": "/images/mens/mens.jpg",
+        "href": "/products"
+    },
+    {
+        "name": "Accessories",
+        "image": "/images/mens/mens.jpg",
+        "href": "/products"
+    },
+    {
+        "name": "Belts",
+        "image": "/images/mens/mens.jpg",
+        "href": "/products"
+    },
+    {
+        "name": "Sunglasses",
+        "image": "/images/mens/mens.jpg",
+        "href": "/products"
+    }
+]
